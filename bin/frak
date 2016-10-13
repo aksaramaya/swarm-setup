@@ -1,0 +1,12 @@
+#!/bin/bash
+IPCHECK="$1"
+if [ ! -z "$IPCHECK" ]
+then
+  echo "IP Address : "$IPCHECK
+  echo "RUN : docker run -d -p 9000:9000 --name="frak" -it aksaramaya/frak -H tcp://$IPCHECK:4000 --swarm"
+  docker run -d -p 9000:9000 --name="frak" -it aksaramaya/frak -H tcp://$IPCHECK:4000 --swarm
+else
+  echo "Can't detect IP Address. Ex: make frak IP=127.0.0.1"
+  exit 0
+fi
+

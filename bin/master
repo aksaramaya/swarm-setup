@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
-DEVICE=`cat build/ethernet.conf`
-CONSUL=`cat build/consul.conf`
+SRC="$1"
+DEVICE=`cat $SRC/config/ethernet.conf`
+CONSUL=`cat $SRC/config/consul.conf`
 
 set -o nounset -o errexit
 export PATH=/usr/sbin:/usr/bin:$PATH

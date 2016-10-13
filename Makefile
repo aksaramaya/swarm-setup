@@ -1,7 +1,8 @@
 CONFIG_DIRS := config
 BIN := bin
+SRC := $(PWD)
 
-.PHONY: all clean bootstrap master slave flush consul info
+.PHONY: all clean bootstrap master slave flush consul info frak
 
 all: bootstrap
 
@@ -17,10 +18,10 @@ bootstrap:
 	systemctl start docker-swarm-am
 
 master:
-	bash $(BIN)/master
+	bash $(BIN)/master $(SRC)
 
 slave:
-	bash $(BIN)/slave
+	bash $(BIN)/slave $(SRC)
 
 consul:
 	docker run -d -p 8500:8500 --name=consul progrium/consul -server -bootstrap
@@ -30,6 +31,9 @@ flush:
 
 info:
 	docker -H :4000 info
+
+frak:
+	bash $(BIN)/frak $(IP)
 
 clean:
 	yum remove -y docker-engine
