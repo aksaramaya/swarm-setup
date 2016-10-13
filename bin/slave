@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+DEVICE=`cat build/ethernet.conf`
+CONSUL=`cat build/consul.conf`
+
+set -o nounset -o errexit
+export PATH=/usr/sbin:/usr/bin:$PATH
+IPCHECK=$(ip addr show $DEVICE | grep -Eo '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
+if [ ! -z "$IPCHECK" ]
+then
+  echo -n "IP Address : "$IPCHECK
+  echo "RUN : docker run -d swarm join --advertise=$IPCHECK:2375 consul://$CONSUL:8500"
+  docker run -d swarm join --advertise=$IPCHECK:2375 consul://$CONSUL:8500
+else
+  echo "Can't detect IP Address..."
+  exit 0
+fi
