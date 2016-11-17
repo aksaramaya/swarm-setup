@@ -36,7 +36,7 @@ frak:
 	bash $(BIN)/frak $(IP)
 
 clean:
-	yum remove -y docker-engine
+	yum remove -y docker-engine docker-engine-selinux
 	systemctl disable docker-swarm-am
 	systemctl stop docker-swarm-am
 	rm -rf /lib/systemd/system/docker-swarm-am.service
