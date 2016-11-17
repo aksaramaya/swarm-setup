@@ -2,7 +2,7 @@ CONFIG_DIRS := config
 BIN := bin
 SRC := $(PWD)
 
-.PHONY: all clean bootstrap master slave flush consul info frak
+.PHONY: all clean bootstrap master slave flush consul info frak repo
 
 all: bootstrap
 
@@ -40,3 +40,10 @@ clean:
 	systemctl disable docker-swarm-am
 	systemctl stop docker-swarm-am
 	rm -rf /lib/systemd/system/docker-swarm-am.service
+
+repo:
+	echo "Setup Repository..."
+	bash $(BIN)/bootstrap
+	yum install -y docker-engine
+	systemctl enable docker
+	systemctl start docker
